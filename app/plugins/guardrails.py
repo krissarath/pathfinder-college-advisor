@@ -158,13 +158,20 @@ class GuardrailPolicyPlugin(BasePlugin):
     async def before_model_callback(
         self, *, callback_context: Any, llm_request: Any
     ) -> Any:
+        # Only inspect the root coordinator's actual user turn; skip internal ADK
+        # sub-agent handoff turns ("For context: [...]") so agent-authored mentions
+        # of W-2/IDOC/1040 never false-trigger the raw-document No-Ingest blocker.
+        agent_name = getattr(callback_context, "agent_name", "")
+        if agent_name and agent_name != "counselor_coordinator_agent":
+            return None
+
         contents = getattr(llm_request, "contents", None) or []
         latest_user_text = ""
         for content in reversed(contents):
             if getattr(content, "role", None) == "user":
                 parts = getattr(content, "parts", None) or []
                 candidate = " ".join(getattr(p, "text", "") or "" for p in parts).strip()
-                if candidate:
+                if candidate and not candidate.startswith("For context:"):
                     latest_user_text = candidate
                     break
 
