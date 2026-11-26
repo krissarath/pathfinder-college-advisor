@@ -1,0 +1,48 @@
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*-key.json
+service-account*.json
+credentials*.json
+application_default_credentials.json
+*.pem
+*.key
+*.p12
+
+# Local databases & vector stores (never commit student data)
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+local_vector_store/
+data/private/
+
+# Exported personal calendars & documents
+*.ics
+*.pdf
+*.csv
+*.log
+
+# Terraform state & local variable overrides
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+
+# OS & Python build/cache artifacts
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.adk/

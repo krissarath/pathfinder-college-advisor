@@ -1,0 +1,106 @@
+{
+  "data_as_of": "2026-11-25",
+  "cycle_year": "2027-2028",
+  "entry_term": "Fall 2028",
+  "ppy_tax_year": 2026,
+  "common_app_specs": {
+    "rollover_date": "2027-08-01",
+    "max_colleges": 20,
+    "activities_max_slots": 10,
+    "activities_desc_char_limit": 150,
+    "honors_max_slots": 5,
+    "personal_essay_word_limit": 650,
+    "additional_info_word_limit": 300,
+    "challenges_circumstances_word_limit": 250,
+    "ferpa_waiver_advice": "Waive FERPA access to letters of recommendation; irreversible after first submission.",
+    "verify_note": "Re-verify Common App prompts and word limits after the August 1, 2027 rollover."
+  },
+  "milestones": [
+    {
+      "phase": "Junior Winter / Spring",
+      "date": "2027-03-01",
+      "title": "Finalize Senior-Year Course Rigor & 2026 PPY Tax Check",
+      "category": "academic",
+      "details": "Lock senior AP/IB/DE courses aligned to target major; review 2026 tax year impact on Fall 2028 financial aid."
+    },
+    {
+      "phase": "Junior Winter / Spring",
+      "date": "2027-05-01",
+      "title": "Ask 2 Junior Teachers for LORs & Submit Brag Sheets",
+      "category": "common_app",
+      "details": "Request 1 STEM + 1 Humanities junior-year teacher; submit student & parent brag sheets via Naviance/Scoir."
+    },
+    {
+      "phase": "Summer Before Senior Year",
+      "date": "2027-08-01",
+      "title": "Common App Opens / Rollover (2027-2028 Cycle)",
+      "category": "common_app",
+      "details": "Create/roll over Common App account; confirm supplemental prompts and 300w/250w writing limits; waive FERPA."
+    },
+    {
+      "phase": "Early Round & Aid Open",
+      "date": "2027-10-01",
+      "title": "FAFSA, CSS Profile & UC Application Window Open",
+      "category": "financial_aid",
+      "details": "Eligible citizens/GC holders file FAFSA; H-4/F-1/private-school applicants file CSS Profile / ISFAA and prepare IDOC."
+    },
+    {
+      "phase": "Early Round & Aid Open",
+      "date": "2027-10-10",
+      "title": "Internal High School Transcript & LOR Request Deadline",
+      "category": "common_app",
+      "details": "Submit Naviance/Scoir requests 3-4 weeks before Nov 1 college deadlines."
+    },
+    {
+      "phase": "Early Round & Aid Open",
+      "date": "2027-11-01",
+      "title": "EA / REA / ED I & Priority Merit / Honors Deadlines",
+      "category": "deadline",
+      "details": "Submit Early Action, Restrictive EA, binding ED I, Honors, and priority merit apps; activate portals within 72 hours and clear TOEFL waivers."
+    },
+    {
+      "phase": "Early Round & Aid Open",
+      "date": "2027-11-30",
+      "title": "UC Application Submission Deadline",
+      "category": "deadline",
+      "details": "Final day for University of California campuses (separate portal from Common App)."
+    },
+    {
+      "phase": "Merit & Regular Decision",
+      "date": "2027-12-01",
+      "title": "Competitive Merit Scholarship Priority Deadlines",
+      "category": "financial_aid",
+      "details": "Final priority window for major merit awards at select public/private universities."
+    },
+    {
+      "phase": "Merit & Regular Decision",
+      "date": "2028-01-01",
+      "title": "Regular Decision (RD) & ED II Deadlines (Jan 1 - Jan 15)",
+      "category": "deadline",
+      "details": "Submit RD/ED II apps, CSS Profile/ISFAA/IDOC docs, and opt in to alumni interviews."
+    },
+    {
+      "phase": "Post-Submission & Decision",
+      "date": "2028-02-01",
+      "title": "Mid-Year Transcripts & Deferral LOCIs",
+      "category": "common_app",
+      "details": "Ensure counselor submits mid-year report; send concise LOCI for deferred apps only where permitted."
+    },
+    {
+      "phase": "Post-Submission & Decision",
+      "date": "2028-04-01",
+      "title": "Compare Financial Aid Awards & File Appeals",
+      "category": "financial_aid",
+      "details": "Normalize grants vs. loans/work-study; submit special-circumstance or merit appeals before May 1."
+    },
+    {
+      "phase": "Post-Submission & Decision",
+      "date": "2028-05-01",
+      "title": "National College Decision Day (Single Enrollment Deposit)",
+      "category": "deadline",
+      "details": "Submit one enrollment deposit (never double-deposit); F-1 students submit Certificate of Finances for Form I-20."
+    }
+  ],
+  "source_url": "https://www.commonapp.org/apply/first-year-students",
+  "last_verified_date": "2026-11-25"
+}

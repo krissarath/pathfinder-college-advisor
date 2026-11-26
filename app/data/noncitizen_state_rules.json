@@ -1,0 +1,106 @@
+{
+  "data_as_of": "2026-11-25",
+  "cycle_year": "2027-2028",
+  "citizenship_statuses": {
+    "US_CITIZEN": {
+      "fafsa_eligible": true,
+      "admissions_pool": "domestic",
+      "aid_pool": "domestic",
+      "work_authorization": "Unrestricted (eligible for Federal Work-Study & internships)",
+      "key_notes": [
+        "File FAFSA (opens Oct 1, 2027 using 2026 PPY tax returns) and CSS Profile where required."
+      ],
+      "source_url": "https://studentaid.gov/understand-aid/eligibility/requirements"
+    },
+    "GREEN_CARD": {
+      "fafsa_eligible": true,
+      "admissions_pool": "domestic",
+      "aid_pool": "domestic",
+      "work_authorization": "Unrestricted (eligible for Federal Work-Study & internships)",
+      "key_notes": [
+        "Eligible non-citizen (Form I-551 in hand): qualifies for federal aid via FAFSA and domestic aid pools."
+      ],
+      "source_url": "https://studentaid.gov/understand-aid/eligibility/requirements/non-us-citizens"
+    },
+    "I485_PENDING_C09": {
+      "fafsa_eligible": false,
+      "admissions_pool": "domestic_by_hs_often",
+      "aid_pool": "international_or_institutional",
+      "work_authorization": "C09 EAD permits internships/co-ops without F-1 CPT/OPT",
+      "key_notes": [
+        "Pending I-485 is STILL NOT FAFSA-eligible until final I-551 Green Card approval.",
+        "C09 EAD allows off-campus internships without switching to F-1; CSPA may freeze age-out.",
+        "Use CSS Profile / ISFAA and target merit-generous or Tier 1-3 colleges."
+      ],
+      "source_url": "https://studentaid.gov/understand-aid/eligibility/requirements/non-us-citizens"
+    },
+    "H4_DEPENDENT": {
+      "fafsa_eligible": false,
+      "admissions_pool": "domestic_by_hs_often",
+      "aid_pool": "international_need_aware_often",
+      "work_authorization": "No work authorization on H-4 (no CPT/OPT or Federal Work-Study)",
+      "key_notes": [
+        "Not eligible for federal aid (FAFSA); use CSS Profile / ISFAA and target merit-generous schools.",
+        "Many states grant in-state public tuition to H-4 residents who meet state residency/HS attendance laws.",
+        "H-4 ages out at 21: switching to F-1 unlocks CPT/OPT after 1 full academic year in F-1 status, but usually forfeits in-state public tuition immediately and takes 6-12+ months via USCIS Change of Status."
+      ],
+      "source_url": "https://studyinthestates.dhs.gov/students"
+    },
+    "F1_INTERNATIONAL": {
+      "fafsa_eligible": false,
+      "admissions_pool": "international",
+      "aid_pool": "international",
+      "work_authorization": "On-campus up to 20 hrs/wk; CPT/OPT after 1 full academic year (36-month STEM-OPT for qualifying CIP codes)",
+      "key_notes": [
+        "Requires Certificate of Finances / liquid proof of Year 1 COA minus institutional aid in Spring 2028 (post-deposit) for Form I-20.",
+        "Budget $350 SEVIS I-901 fee and consular visa interview lead time.",
+        "Verify whether intended major carries a STEM-OPT CIP code and check ITAR restrictions for aerospace/defense."
+      ],
+      "source_url": "https://studyinthestates.dhs.gov/students"
+    }
+  },
+  "state_in_state_tuition_rules": {
+    "TX": {
+      "h4_in_state_eligible": true,
+      "state_aid_program": "Verify current TX Education Code § 54.052 domicile eligibility with university registrar",
+      "rule_summary": "H-4 visa holders with lawful 12-month TX domicile generally qualify for in-state tuition under TX Education Code § 54.052 (note: SB 1528 was enjoined in June 2025; verify current registrar policy).",
+      "source_url": "https://www.highered.texas.gov/"
+    },
+    "CA": {
+      "h4_in_state_eligible": true,
+      "state_aid_program": "Check UC/CSU residency office (H-4 may qualify for regular residency after 366 days physical presence + intent, distinct from AB 540)",
+      "rule_summary": "H-4 holders who meet UC/CSU physical presence and intent rules generally qualify for in-state tuition; F-1 holders do not.",
+      "source_url": "https://www.ucop.edu/residency/"
+    },
+    "NJ": {
+      "h4_in_state_eligible": true,
+      "state_aid_program": "NJ Alternative Financial Aid Application (check visa eligibility)",
+      "rule_summary": "NJ public universities generally grant in-state tuition to H-4 dependents with 12+ months NJ domicile; confirm with Rutgers/NJIT registrar.",
+      "source_url": "https://www.hesaa.org/"
+    },
+    "NY": {
+      "h4_in_state_eligible": true,
+      "state_aid_program": "NYS DREAM Act / SUNY residency review",
+      "rule_summary": "SUNY/CUNY generally evaluate H-4 students with 12-month NY domicile or NY HS graduation for in-state tuition; verify per campus.",
+      "source_url": "https://www.suny.edu/smarttrack/residency/"
+    },
+    "VA": {
+      "h4_in_state_eligible": true,
+      "state_aid_program": "VASA (verify current visa eligibility)",
+      "rule_summary": "Virginia grants in-state tuition to H-4 dependents meeting 12-month domicile requirements; F-1 students are ineligible.",
+      "source_url": "https://www.schev.edu/"
+    },
+    "WA": {
+      "h4_in_state_eligible": true,
+      "state_aid_program": "WASFA (Washington Application for State Financial Aid)",
+      "rule_summary": "Washington allows H-4 students meeting residency or HS completion criteria to qualify for in-state tuition; verify with campus registrar.",
+      "source_url": "https://wsac.wa.gov/residency"
+    },
+    "IL": {
+      "h4_in_state_eligible": true,
+      "state_aid_program": "RISE Act (check visa applicability)",
+      "rule_summary": "Illinois public universities (e.g., UIUC) grant in-state tuition to H-4 dependents whose parents maintain 12-month IL domicile.",
+      "source_url": "https://www.uaps.uillinois.edu/student_programs/residency_information"
+    }
+  }
+}
