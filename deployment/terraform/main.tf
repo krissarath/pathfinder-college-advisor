@@ -168,7 +168,15 @@ resource "google_cloud_run_v2_service" "pathfinder_agent" {
       }
       env {
         name  = "GOOGLE_CLOUD_LOCATION"
-        value = var.region
+        value = "global"
+      }
+      env {
+        name  = "PATHFINDER_FLASH_MODEL"
+        value = "gemini-3.8-flash"
+      }
+      env {
+        name  = "PATHFINDER_PRO_MODEL"
+        value = "gemini-3.1-pro"
       }
       env {
         name  = "ENABLE_CLOUD_DLP"

@@ -10,6 +10,7 @@ from __future__ import annotations
 from google.adk.agents import LlmAgent
 from google.adk.tools import FunctionTool
 
+from app.config import FLASH_MODEL
 from app.prompts.constitution import STATIC_REFERENCE_GUIDE, SYSTEM_CONSTITUTION
 from app.tools.timeline_tools import (
     delete_student_data,
@@ -33,7 +34,7 @@ def build_action_execution_agent() -> LlmAgent:
     ]
     return LlmAgent(
         name="action_execution_agent",
-        model="gemini-2.5-flash",
+        model=FLASH_MODEL,
         description="Executes high-stakes shortlist, binding Early Decision, profile, ICS export, and data-deletion actions with explicit HITL confirmation.",
         static_instruction=STATIC_REFERENCE_GUIDE,
         instruction=(

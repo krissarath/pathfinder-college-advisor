@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from google.adk.agents import LlmAgent, ParallelAgent, SequentialAgent
 
+from app.config import PRO_MODEL
 from app.prompts.constitution import STATIC_REFERENCE_GUIDE, SYSTEM_CONSTITUTION
 from app.sub_agents.academic_course_agent import build_academic_course_agent
 from app.sub_agents.college_fit_agent import build_college_fit_agent
@@ -25,7 +26,7 @@ def build_application_prep_pipeline() -> SequentialAgent:
 
     plan_synthesizer = LlmAgent(
         name="plan_synthesizer_agent",
-        model="gemini-2.5-pro",
+        model=PRO_MODEL,
         description="Synthesizes parallel academic, college-fit, and financial/non-citizen findings into one coherent strategy.",
         static_instruction=STATIC_REFERENCE_GUIDE,
         instruction=(

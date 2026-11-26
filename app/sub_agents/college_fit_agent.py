@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from google.adk.agents import LlmAgent
 
+from app.config import PRO_MODEL
 from app.prompts.constitution import STATIC_REFERENCE_GUIDE, SYSTEM_CONSTITUTION
 from app.tools.college_tools import (
     check_english_proficiency_waiver,
@@ -16,7 +17,7 @@ def build_college_fit_agent() -> LlmAgent:
     """Builds the CollegeFitAndListAgent (gemini-2.5-pro) writing to session.state['college_shortlist']."""
     return LlmAgent(
         name="college_fit_and_list_agent",
-        model="gemini-2.5-pro",
+        model=PRO_MODEL,
         description="Matches Reach/Target/Safety colleges by major and budget, checks ED/EA/REA conflicts, and verifies TOEFL waivers.",
         static_instruction=STATIC_REFERENCE_GUIDE,
         instruction=(

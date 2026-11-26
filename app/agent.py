@@ -9,6 +9,7 @@ from google.adk.apps.llm_event_summarizer import LlmEventSummarizer
 from google.adk.models.google_llm import Gemini
 from google.adk.tools.preload_memory_tool import PreloadMemoryTool
 
+from app.config import FLASH_MODEL
 from app.plugins.guardrails import GuardrailPolicyPlugin
 from app.plugins.memory import AsyncMemoryPlugin
 from app.plugins.observability import ObservabilityPlugin
@@ -22,7 +23,7 @@ def build_root_agent() -> LlmAgent:
     """Builds the root CounselorCoordinatorAgent (gemini-2.5-flash) with PreloadMemoryTool."""
     return LlmAgent(
         name="counselor_coordinator_agent",
-        model="gemini-2.5-flash",
+        model=FLASH_MODEL,
         description="Root PathFinder AI coordinator routing college planning queries to specialist sub-agents and HITL action tools.",
         static_instruction=STATIC_REFERENCE_GUIDE,
         instruction=(
@@ -53,7 +54,7 @@ app = App(
     events_compaction_config=EventsCompactionConfig(
         compaction_interval=5,
         overlap_size=1,
-        summarizer=LlmEventSummarizer(llm=Gemini(model="gemini-2.5-flash")),
+        summarizer=LlmEventSummarizer(llm=Gemini(model=FLASH_MODEL)),
     ),
     context_cache_config=ContextCacheConfig(
         min_tokens=1024,
