@@ -44,26 +44,120 @@ make eval
 
 ## Deploy to Google Cloud Run (Terraform + `agent-starter-pack` Layout)
 
+### Option A — Full Terraform Deployment (Cloud Run + Cloud SQL + Firestore + Secret Manager + DLP)
+
 ```bash
 # 1. Build and push the container image to Artifact Registry
-export PROJECT_ID=<YOUR_GCP_PROJECT_ID>
-export REGION=us-central1
-export IMAGE_URI=${REGION}-docker.pkg.dev/${PROJECT_ID}/pathfinder/advisor:latest
+export PROJECT_ID="<YOUR_GCP_PROJECT_ID>"
+export REGION="us-central1"
+export IMAGE_URI="${REGION}-docker.pkg.dev/${PROJECT_ID}/pathfinder/advisor:latest"
 
+gcloud config set project "${PROJECT_ID}"
+gcloud services enable artifactregistry.googleapis.com cloudbuild.googleapis.com run.googleapis.com
+gcloud artifacts repositories create pathfinder --repository-format=docker --location="${REGION}" || true
 gcloud builds submit --tag "${IMAGE_URI}" .
 
-# 2. Provision Cloud Run, Cloud SQL, Firestore, Secret Manager, and Cloud DLP via Terraform
+# 2. Provision full stack via Terraform
 cd deployment/terraform
 terraform init
 terraform apply \
   -var="project_id=${PROJECT_ID}" \
   -var="region=${REGION}" \
   -var="container_image=${IMAGE_URI}"
-
-# 3. Access the authenticated Cloud Run Web UI safely from your browser
-gcloud run services proxy pathfinder-college-advisor --region="${REGION}" --port=8080
-# Open http://localhost:8080
 ```
+
+### Option B — Fast Single-Command Cloud Run Deploy
+
+```bash
+export PROJECT_ID="<YOUR_GCP_PROJECT_ID>"
+export REGION="us-central1"
+
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com \
+  aiplatform.googleapis.com cloudtrace.googleapis.com logging.googleapis.com
+
+gcloud run deploy pathfinder-college-advisor \
+  --source . \
+  --region "${REGION}" \
+  --no-allow-unauthenticated \
+  --no-cpu-throttling \
+  --memory 1Gi \
+  --cpu 2 \
+  --timeout 300 \
+  --set-env-vars "GOOGLE_GENAI_USE_VERTEXAI=TRUE,GOOGLE_CLOUD_PROJECT=${PROJECT_ID},GOOGLE_CLOUD_LOCATION=global,PATHFINDER_FLASH_MODEL=gemini-3.8-flash,PATHFINDER_PRO_MODEL=gemini-3.1-pro-preview,ENABLE_CLOUD_TRACE=true,CAPTURE_MESSAGE_CONTENT=false"
+```
+
+### Access the Authenticated Cloud Run Web UI
+
+```bash
+gcloud run services proxy pathfinder-college-advisor --region="${REGION}" --port=8080
+# Open http://localhost:8080 and select "app" in the ADK Web UI dropdown
+```
+
+## GitHub Actions CI & Workload Identity Federation (WIF) Setup
+
+The repository includes `.github/workflows/ci.yml` with an **offline quality/security job** (runs automatically on every push/PR) and a **keyless WIF-authenticated live ADK evaluation job** against Vertex AI.
+
+### 1. Create a Workload Identity Pool, GitHub OIDC Provider & CI Service Account
+
+```bash
+export PROJECT_ID="<YOUR_GCP_PROJECT_ID>"
+export PROJECT_NUMBER=$(gcloud projects describe "${PROJECT_ID}" --format="value(projectNumber)")
+export GITHUB_REPO="<YOUR_GITHUB_USERNAME>/pathfinder-college-advisor"
+export POOL_NAME="github-actions-pool"
+export PROVIDER_NAME="github-provider"
+export SA_NAME="github-actions-ci"
+export SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
+
+gcloud config set project "${PROJECT_ID}"
+gcloud services enable iamcredentials.googleapis.com sts.googleapis.com aiplatform.googleapis.com
+
+# Create Workload Identity Pool & GitHub OIDC Provider (locked strictly to your repository)
+gcloud iam workload-identity-pools create "${POOL_NAME}" \
+  --project="${PROJECT_ID}" \
+  --location="global" \
+  --display-name="GitHub Actions Pool"
+
+gcloud iam workload-identity-pools providers create-oidc "${PROVIDER_NAME}" \
+  --project="${PROJECT_ID}" \
+  --location="global" \
+  --workload-identity-pool="${POOL_NAME}" \
+  --display-name="GitHub Provider" \
+  --issuer-uri="https://token.actions.githubusercontent.com" \
+  --attribute-mapping="google.subject=assertion.sub,attribute.actor=assertion.actor,attribute.repository=assertion.repository,attribute.repository_owner=assertion.repository_owner" \
+  --attribute-condition="assertion.repository == '${GITHUB_REPO}'"
+
+# Create least-privilege CI Service Account & grant Vertex AI User role
+gcloud iam service-accounts create "${SA_NAME}" \
+  --project="${PROJECT_ID}" \
+  --display-name="GitHub Actions CI Service Account"
+
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
+  --member="serviceAccount:${SA_EMAIL}" \
+  --role="roles/aiplatform.user"
+
+# Allow ONLY your GitHub repository to impersonate the CI Service Account
+gcloud iam service-accounts add-iam-policy-binding "${SA_EMAIL}" \
+  --project="${PROJECT_ID}" \
+  --role="roles/iam.workloadIdentityUser" \
+  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_NAME}/attribute.repository/${GITHUB_REPO}"
+
+# Print exact values for GitHub Repository Settings
+echo "GCP_WORKLOAD_IDENTITY_PROVIDER=projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_NAME}/providers/${PROVIDER_NAME}"
+echo "GCP_SERVICE_ACCOUNT=${SA_EMAIL}"
+echo "GCP_PROJECT_ID=${PROJECT_ID}"
+```
+
+### 2. Configure GitHub Repository Secrets & Variables
+
+In your GitHub repository, navigate to **Settings → Secrets and variables → Actions**:
+- **Secrets**:
+  - `GCP_WORKLOAD_IDENTITY_PROVIDER`: `projects/<PROJECT_NUMBER>/locations/global/workloadIdentityPools/github-actions-pool/providers/github-provider`
+  - `GCP_SERVICE_ACCOUNT`: `github-actions-ci@<YOUR_GCP_PROJECT_ID>.iam.gserviceaccount.com`
+  - `GCP_PROJECT_ID`: `<YOUR_GCP_PROJECT_ID>`
+- **Variables**:
+  - `ENABLE_LIVE_EVALS`: `true`
+
+Push to `main` or open a Pull Request to trigger both the offline security/unit/Terraform job and the WIF-authenticated live ADK evaluation suite.
 
 ## 19-Criterion AgentOps Rubric Evidence Table (95 / 95)
 
