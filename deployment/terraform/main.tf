@@ -176,7 +176,7 @@ resource "google_cloud_run_v2_service" "pathfinder_agent" {
       }
       env {
         name  = "PATHFINDER_PRO_MODEL"
-        value = "gemini-3.1-pro"
+        value = "gemini-3.1-pro-preview"
       }
       env {
         name  = "ENABLE_CLOUD_DLP"

@@ -78,7 +78,7 @@ gcloud run services proxy pathfinder-college-advisor --region="${REGION}" --port
 | | Persistent Session State | `server.py` (`DatabaseSessionService` / Cloud SQL) & Firestore `StudentMemoryStore` in `app/plugins/memory.py` |
 | | Async Memory Operations | `AsyncMemoryPlugin` (`add_session_to_memory` + tracked `asyncio.create_task`) in `app/plugins/memory.py` |
 | **3. Orchestration & Logic** | Multi-Agent Patterns | `SequentialAgent` + `ParallelAgent` (`{academic_audit?}`, `{college_shortlist?}`, `{financial_plan?}`) in `app/sub_agents/pipeline.py` |
-| | Strategic Model Routing | `gemini-3.8-flash` (routing/academic/timeline/actions) vs. `gemini-3.1-pro` (college fit/finance/synthesis) in `app/config.py` |
+| | Strategic Model Routing | `gemini-3.8-flash` (routing/academic/timeline/actions) vs. `gemini-3.1-pro-preview` (college fit/finance/synthesis) in `app/config.py` |
 | | Guardrails & Policy Plugins | `GuardrailPolicyPlugin(BasePlugin)` in `app/plugins/guardrails.py` |
 | | Human-in-the-Loop Hooks | `ResumabilityConfig` in `app/agent.py` + 6 HITL `request_confirmation` tools with before/after diffs in `app/tools/timeline_tools.py` |
 | **4. Observability & Tracing** | Structured JSON Logging | `structlog` JSON + Cloud Trace correlation + fail-closed DLP in `app/plugins/observability.py` |

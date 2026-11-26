@@ -10,4 +10,4 @@ from __future__ import annotations
 import os
 
 FLASH_MODEL: str = os.getenv("PATHFINDER_FLASH_MODEL", "gemini-3.8-flash")
-PRO_MODEL: str = os.getenv("PATHFINDER_PRO_MODEL", "gemini-3.1-pro")
+PRO_MODEL: str = os.getenv("PATHFINDER_PRO_MODEL", "gemini-3.1-pro-preview")
